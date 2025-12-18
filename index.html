@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Premises Access Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary-blue: #1a237e;
+            --secondary-blue: #283593;
+            --accent-blue: #3949ab;
+            --light-blue: #e8eaf6;
+            --text-color: #000000;
+            --card-bg: #ffffff;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0d47a1, #1976d2, #42a5f5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            transition: background-image 0.5s ease;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            position: relative;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+            color: #1a237e;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            width: 80%;
+            height: 4px;
+            background: var(--light-blue);
+            border-radius: 2px;
+        }
+        
+        .controls {
+            position: absolute;
+            top: 20px;
+            right: 0;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .upload-container {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            color: white;
+        }
+        
+        .upload-container h3 {
+            margin-bottom: 15px;
+            color: var(--light-blue);
+        }
+        
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--light-blue);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: var(--light-blue);
+        }
+        
+        .upload-btn {
+            background: var(--light-blue);
+            color: var(--primary-blue);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .upload-btn:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+            width: 100%;
+            justify-items: center;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            border: 2px solid #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+        }
+        
+        .card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-blue);
+        }
+        
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+            transition: all 0.5s ease;
+        }
+        
+        .card:hover .card-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .card-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-blue);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .card-number {
+            transform: scale(1.2);
+            background: var(--accent-blue);
+        }
+        
+        .detail-view {
+            display: none;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            border: 2px solid #000000;
+            animation: slideUp 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .detail-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .detail-icon {
+            font-size: 2.5rem;
+            margin-right: 20px;
+            color: var(--primary-blue);
+        }
+        
+        .detail-title {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+        }
+        
+        .detail-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+        
+        /* UPDATED IMAGE STYLES - BORDERLESS */
+        .detail-image {
+            width: 100%;
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 10px;
+            margin: 20px 0;
+            /* Removed border and background */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .back-button:hover {
+            background: var(--accent-blue);
+            transform: translateX(-5px);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            color: white;
+        }
+        
+        /* Animation classes */
+        .slide-out {
+            animation: slideOut 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0) scale(1); opacity: 1; }
+            to { transform: translateX(-100%) scale(0.8); opacity: 0; }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%) scale(0.8); opacity: 0; }
+            to { transform: translateX(0) scale(1); opacity: 1; }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            70% { transform: scale(0.9); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .controls {
+                position: static;
+                justify-content: center;
+                margin-top: 20px;
+            }
+            
+            /* Mobile-specific image adjustments */
+            .detail-image {
+                max-height: 300px;
+            }
+            
+            .card {
+                height: 180px;
+                padding: 25px 20px;
+                max-width: 250px;
+            }
+            
+            .card-icon {
+                font-size: 2.5rem;
+            }
+            
+            .card-title {
+                font-size: 1.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-image {
+                max-height: 250px;
+            }
+            
+            .card {
+                height: 160px;
+                padding: 20px 15px;
+                max-width: 280px;
+            }
+            
+            .card-icon {
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+            }
+            
+            .card-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Cash Premises Access Control</h1>
+            
+            <div class="controls">
+                <button class="control-btn" id="uploadBgBtn">
+                    <i class="fas fa-image"></i> Change Background
+                </button>
+            </div>
+        </header>
+        
+        <div class="upload-container" id="uploadBgContainer">
+            <h3>Upload Custom Background</h3>
+            <div class="upload-area" id="bgUploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Click to select an image or drag and drop</p>
+                <p class="small">Recommended: 1920x1080 or larger, JPG/PNG format</p>
+            </div>
+            <input type="file" id="bgUpload" accept="image/*" style="display: none;">
+            <button class="upload-btn" id="applyBgBtn">Apply Background</button>
+            <button class="control-btn" style="margin-top: 10px;" id="closeBgUploadBtn">Cancel</button>
+        </div>
+        
+        <div class="cards-container" id="cardsContainer">
+            <!-- Card 1 -->
+            <div class="card" data-card="1">
+                <div class="card-number">1</div>
+                <div class="card-icon">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <h3 class="card-title">Entry Restricted Area</h3>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="card" data-card="2">
+                <div class="card-number">2</div>
+                <div class="card-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h3 class="card-title">Authorized Persons</h3>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="card" data-card="3">
+                <div class="card-number">3</div>
+                <div class="card-icon">
+                    <i class="fas fa-door-closed"></i>
+                </div>
+                <h3 class="card-title">Access Control</h3>
+            </div>
+            
+            <!-- Card 4 -->
+            <div class="card" data-card="4">
+                <div class="card-number">4</div>
+                <div class="card-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3 class="card-title">Security Protocols</h3>
+            </div>
+            
+            <!-- Card 5 -->
+            <div class="card" data-card="5">
+                <div class="card-number">5</div>
+                <div class="card-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 class="card-title">Visitor Register</h3>
+            </div>
+            
+            <!-- Card 6 -->
+            <div class="card" data-card="6">
+                <div class="card-number">6</div>
+                <div class="card-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h3 class="card-title">Register Maintenance</h3>
+            </div>
+            
+            <!-- Card 7 -->
+            <div class="card" data-card="7">
+                <div class="card-number">7</div>
+                <div class="card-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <h3 class="card-title">Access Deactivation</h3>
+            </div>
+            
+            <!-- Card 8 -->
+            <div class="card" data-card="8">
+                <div class="card-number">8</div>
+                <div class="card-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3 class="card-title">CCTV Coverage</h3>
+            </div>
+        </div>
+        
+        <!-- Detail Views -->
+        <div class="detail-view" id="detailView1">
+            <div class="detail-header">
+                <div class="detail-icon">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <h2 class="detail-title">Entry Restricted Area</h2>
+            </div>
+            <div class="detail-content">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Entry_Restricted.png" class="detail-image">
+                <p>Cash premises are Entry Restricted area.</p>
+                <p>This means that only authorized personnel are allowed to enter these areas. Unauthorized access is strictly prohibited and may result in disciplinary action.</p>
+            </div>
+            <div class="back-button" onclick="showCardsView()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </div>
+        </div>
+        
+        <div class="detail-view" id="detailView2">
+            <div class="detail-header">
+                <div class="detail-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <h2 class="detail-title">Authorized Persons</h2>
+            </div>
+            <div class="detail-content">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Authorized Person.png" alt="Authorized Personnel" class="detail-image">
+                <p><strong>Only Concern Officer:</strong></p>
+                <p><strong>Vault Key Custodian</strong></p>
+                <p><strong>BOM, Branch Manager</strong></p>
+                <p><strong>MD</strong></p>
+                <p><strong>DMD</strong></p>
+                <p><strong>HORB HOBB</strong></p>
+                <p><strong>Regional Head of Branch banking</strong></p>
+                <p><strong>HORM, HORMD, HOL & RA</strong></p>
+                <p><strong>Internal & External Audit Team</strong></p>
+                <p><strong>Custodian of Security Item & Locker</strong> (Master Key, Surrendered Key, and Unrented Key)</p>
+                <p><strong>Cash Sorter/Support Staff</strong></p>
+                <p><strong>Designated persons</strong> whom are authorized to enter into Cash Area.</p>
+            </div>
+            <div class="back-button" onclick="showCardsView()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </div>
+        </div>
+        
+        <div class="detail-view" id="detailView3">
+            <div class="detail-header">
+                <div class="detail-icon">
+                    <i class="fas fa-door-closed"></i>
+                </div>
+                <h2 class="detail-title">Access Control</h2>
+            </div>
+            <div class="detail-content">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Access Control.png" alt="Access Control System" class="detail-image">
+                <p>All authorized person must deactivate the Access Control door by using Security codes/ID card.</p>
+                <p>"Entry Restricted" mark should be hanged on the Access Control door.</p>
+                <p>Access control systems help ensure that only authorized personnel can enter sensitive areas, maintaining security and accountability.</p>
+            </div>
+            <div class="back-button" onclick="showCardsView()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </div>
+        </div>
+        
+        <div class="detail-view" id="detailView4">
+            <div class="detail-header">
+                <div class="detail-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h2 class="detail-title">Security Protocols</h2>
+            </div>
+            <div class="detail-content">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Security Protocol.png" alt="Security Protocols" class="detail-image">
+                <p>Whenever any Concern Officer leaves the counter, he/she must:</p>
+                <ul>
+                    <li>Lock his/her own cabinet</li>
+                    <li>Lock his/her computer screen by pressing (Windows Key+ L)</li>
+                    <li>Inform his/her superior before leaving the counter/premises</li>
+                </ul>
+                <p>These protocols ensure that sensitive information and assets remain secure even when personnel are temporarily away from their stations.</p>
+            </div>
+            <div class="back-button" onclick="showCardsView()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </div>
+        </div>
+        
+        <div class="detail-view" id="detailView5">
+            <div class="detail-header">
+                <div class="detail-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h2 class="detail-title">Visitor Register</h2>
+            </div>
+            <div class="detail-content">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Register .png" alt="Visitor Register" class="detail-image">
+                <p>Any person assigned by BM (other than Key Custodian) wants to enter in "Cash Vault" must sign in the register with:</p>
+                <ul>
+                    <li>Purpose</li>
+                    <li>PIN</li>
+                    <li>Time in</li>
+                    <li>Time out</li>
+                    <li>Dept. name</li>
+                </ul>
+                <p>All entries must be made in the presence of key custodian(s).</p>
+                <p>The visitor register provides a clear audit trail of who accessed the cash vault and when, enhancing security and accountability.</p>
+            </div>
+            <div class="back-button" onclick="showCardsView()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </div>
+        </div>
+        
+        <div class="detail-view" id="detailView6">
+            <div class="detail-header">
+                <div class="detail-icon">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h2 class="detail-title">Register Maintenance</h2>
+            </div>
+            <div class="detail-content">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Register Maintenance.png" alt="Register Maintenance" class="detail-image">
+                <p>BM/BOM will maintain this register with his/her opinion.</p>
+                <p>The register should be ready at all the time for any inspection.</p>
+                <p>Proper maintenance of registers ensures that all access records are accurately maintained and readily available for audit purposes.</p>
+            </div>
+            <div class="back-button" onclick="showCardsView()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </div>
+        </div>
+        
+        <div class="detail-view" id="detailView7">
+            <div class="detail-header">
+                <div class="detail-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <h2 class="detail-title">Access Deactivation</h2>
+            </div>
+            <div class="detail-content">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Access Deactivation.png" alt="Access Deactivation" class="detail-image">
+                <p>All authorized person must deactivate the Access Control door by using Security codes/ID card.</p>
+                <p>Proper deactivation ensures that the access control system functions as intended, maintaining the security of the cash premises.</p>
+            </div>
+            <div class="back-button" onclick="showCardsView()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </div>
+        </div>
+        
+        <div class="detail-view" id="detailView8">
+            <div class="detail-header">
+                <div class="detail-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h2 class="detail-title">CCTV Coverage</h2>
+            </div>
+            <div class="detail-content">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/CCTV.png" alt="CCTV Coverage" class="detail-image">
+                <p>Ensure CCTV coverage in every area/corner of cash area including:</p>
+                <ul>
+                    <li>HT (High Tension) areas</li>
+                    <li>Cash sorter desk</li>
+                </ul>
+                <p>DVR time should be matched with real time.</p>
+                <p>Comprehensive CCTV coverage provides visual monitoring and recording of all activities in cash areas, serving as both a deterrent and an investigative tool.</p>
+            </div>
+            <div class="back-button" onclick="showCardsView()">
+                <i class="fas fa-arrow-left"></i> Back to Overview
+            </div>
+        </div>
+        
+        <footer class="footer">
+            <p>Cash Premises Access Control System</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click events to all cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const cardId = this.getAttribute('data-card');
+                    showDetailView(cardId);
+                });
+            });
+            
+            // Background upload functionality
+            const uploadBgBtn = document.getElementById('uploadBgBtn');
+            const uploadBgContainer = document.getElementById('uploadBgContainer');
+            const bgUploadArea = document.getElementById('bgUploadArea');
+            const bgUpload = document.getElementById('bgUpload');
+            const applyBgBtn = document.getElementById('applyBgBtn');
+            const closeBgUploadBtn = document.getElementById('closeBgUploadBtn');
+            
+            // Show upload container for background
+            uploadBgBtn.addEventListener('click', function() {
+                uploadBgContainer.style.display = 'block';
+            });
+            
+            // Close upload container
+            closeBgUploadBtn.addEventListener('click', function() {
+                uploadBgContainer.style.display = 'none';
+            });
+            
+            // Trigger file input when upload area is clicked
+            bgUploadArea.addEventListener('click', function() {
+                bgUpload.click();
+            });
+            
+            // Handle file selection for background
+            bgUpload.addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const fileName = e.target.files[0].name;
+                    bgUploadArea.innerHTML = `
+                        <i class="fas fa-file-image"></i>
+                        <p>Selected: ${fileName}</p>
+                        <p class="small">Click "Apply Background" to use this image</p>
+                    `;
+                }
+            });
+            
+            // Apply background image
+            applyBgBtn.addEventListener('click', function() {
+                if (bgUpload.files && bgUpload.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        document.body.style.backgroundImage = `url(${e.target.result})`;
+                        document.body.style.backgroundSize = 'cover';
+                        document.body.style.backgroundPosition = 'center';
+                        document.body.style.animation = 'none';
+                        
+                        // Save to localStorage
+                        localStorage.setItem('customBackground', e.target.result);
+                        
+                        // Close upload container
+                        uploadBgContainer.style.display = 'none';
+                        
+                        // Reset upload area
+                        bgUploadArea.innerHTML = `
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to select an image or drag and drop</p>
+                            <p class="small">Recommended: 1920x1080 or larger, JPG/PNG format</p>
+                        `;
+                        bgUpload.value = '';
+                    };
+                    
+                    reader.readAsDataURL(bgUpload.files[0]);
+                } else {
+                    alert('Please select an image first.');
+                }
+            });
+            
+            // Check for saved background on page load
+            const savedBackground = localStorage.getItem('customBackground');
+            if (savedBackground) {
+                document.body.style.backgroundImage = `url(${savedBackground})`;
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundPosition = 'center';
+                document.body.style.animation = 'none';
+            }
+            
+            // Add drag and drop functionality for background
+            bgUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                bgUploadArea.style.borderColor = '#e8eaf6';
+                bgUploadArea.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            });
+            
+            bgUploadArea.addEventListener('dragleave', function() {
+                bgUploadArea.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                bgUploadArea.style.backgroundColor = 'transparent';
+            });
+            
+            bgUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                bgUploadArea.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+                bgUploadArea.style.backgroundColor = 'transparent';
+                
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    bgUpload.files = e.dataTransfer.files;
+                    
+                    const fileName = e.dataTransfer.files[0].name;
+                    bgUploadArea.innerHTML = `
+                        <i class="fas fa-file-image"></i>
+                        <p>Selected: ${fileName}</p>
+                        <p class="small">Click "Apply Background" to use this image</p>
+                    `;
+                }
+            });
+        });
+        
+        // Function to show detail view with animation
+        function showDetailView(cardId) {
+            const cardsContainer = document.getElementById('cardsContainer');
+            const detailView = document.getElementById('detailView' + cardId);
+            
+            // Animate cards out
+            cardsContainer.classList.add('slide-out');
+            
+            // After animation completes, show detail view
+            setTimeout(() => {
+                cardsContainer.style.display = 'none';
+                detailView.style.display = 'block';
+                detailView.classList.add('bounce-in');
+            }, 700);
+        }
+        
+        // Function to return to cards view
+        function showCardsView() {
+            const detailViews = document.querySelectorAll('.detail-view');
+            const cardsContainer = document.getElementById('cardsContainer');
+            
+            // Hide all detail views
+            detailViews.forEach(view => {
+                view.style.display = 'none';
+                view.classList.remove('bounce-in');
+            });
+            
+            // Show cards container with animation
+            cardsContainer.style.display = 'grid';
+            cardsContainer.classList.remove('slide-out');
+            cardsContainer.classList.add('slide-in');
+            
+            // Remove animation class after completion
+            setTimeout(() => {
+                cardsContainer.classList.remove('slide-in');
+            }, 700);
+        }
+    </script>
+</body>
+</html>
