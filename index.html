@@ -23,23 +23,9 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0d47a1, #1976d2, #42a5f5);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-            transition: background-image 0.5s ease;
-        }
-        
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            /* BACKGROUND SETTING - You can change this URL to your desired background image */
+            background: url('BG_Draft.png') no-repeat center center fixed;
+           
         }
         
         .container {
@@ -66,6 +52,9 @@
             position: relative;
             display: inline-block;
             color: #1a237e;
+            background-color: #ffffff(26, 35, 126, 0.8);
+            padding: 10px 30px;
+            border-radius: 10px;
         }
         
         h1:after {
@@ -77,87 +66,6 @@
             height: 4px;
             background: var(--light-blue);
             border-radius: 2px;
-        }
-        
-        .controls {
-            position: absolute;
-            top: 20px;
-            right: 0;
-            display: flex;
-            gap: 10px;
-        }
-        
-        .control-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            padding: 8px 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .upload-container {
-            display: none;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
-            animation: fadeIn 0.5s ease;
-            color: white;
-        }
-        
-        .upload-container h3 {
-            margin-bottom: 15px;
-            color: var(--light-blue);
-        }
-        
-        .upload-area {
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .upload-area:hover {
-            border-color: var(--light-blue);
-            background: rgba(255, 255, 255, 0.05);
-        }
-        
-        .upload-area i {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            color: var(--light-blue);
-        }
-        
-        .upload-btn {
-            background: var(--light-blue);
-            color: var(--primary-blue);
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-        
-        .upload-btn:hover {
-            background: #ffffff;
-            transform: translateY(-2px);
         }
         
         .cards-container {
@@ -286,8 +194,7 @@
             object-fit: contain;
             border-radius: 10px;
             margin: 20px 0;
-            /* Removed border and background */
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
         .back-button {
@@ -358,12 +265,6 @@
                 font-size: 2.2rem;
             }
             
-            .controls {
-                position: static;
-                justify-content: center;
-                margin-top: 20px;
-            }
-            
             /* Mobile-specific image adjustments */
             .detail-image {
                 max-height: 300px;
@@ -414,25 +315,7 @@
     <div class="container">
         <header>
             <h1>Cash Premises Access Control</h1>
-            
-            <div class="controls">
-                <button class="control-btn" id="uploadBgBtn">
-                    <i class="fas fa-image"></i> Change Background
-                </button>
-            </div>
         </header>
-        
-        <div class="upload-container" id="uploadBgContainer">
-            <h3>Upload Custom Background</h3>
-            <div class="upload-area" id="bgUploadArea">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <p>Click to select an image or drag and drop</p>
-                <p class="small">Recommended: 1920x1080 or larger, JPG/PNG format</p>
-            </div>
-            <input type="file" id="bgUpload" accept="image/*" style="display: none;">
-            <button class="upload-btn" id="applyBgBtn">Apply Background</button>
-            <button class="control-btn" style="margin-top: 10px;" id="closeBgUploadBtn">Cancel</button>
-        </div>
         
         <div class="cards-container" id="cardsContainer">
             <!-- Card 1 -->
@@ -517,7 +400,7 @@
                 <h2 class="detail-title">Entry Restricted Area</h2>
             </div>
             <div class="detail-content">
-                <img src="Entry_Restricted.png" class="detail-image">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Entry_Restricted.png" class="detail-image">
                 <p>Cash premises are Entry Restricted area.</p>
                 <p>This means that only authorized personnel are allowed to enter these areas. Unauthorized access is strictly prohibited and may result in disciplinary action.</p>
             </div>
@@ -534,7 +417,7 @@
                 <h2 class="detail-title">Authorized Persons</h2>
             </div>
             <div class="detail-content">
-                <img src="Authorized Person.png" alt="Authorized Personnel" class="detail-image">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Authorized Person.png" alt="Authorized Personnel" class="detail-image">
                 <p><strong>Only Concern Officer:</strong></p>
                 <p><strong>Vault Key Custodian</strong></p>
                 <p><strong>BOM, Branch Manager</strong></p>
@@ -561,7 +444,7 @@
                 <h2 class="detail-title">Access Control</h2>
             </div>
             <div class="detail-content">
-                <img src="Access Control.png" alt="Access Control System" class="detail-image">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Access Control.png" alt="Access Control System" class="detail-image">
                 <p>All authorized person must deactivate the Access Control door by using Security codes/ID card.</p>
                 <p>"Entry Restricted" mark should be hanged on the Access Control door.</p>
                 <p>Access control systems help ensure that only authorized personnel can enter sensitive areas, maintaining security and accountability.</p>
@@ -579,7 +462,7 @@
                 <h2 class="detail-title">Security Protocols</h2>
             </div>
             <div class="detail-content">
-                <img src="Security Protocol.png" alt="Security Protocols" class="detail-image">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Security Protocol.png" alt="Security Protocols" class="detail-image">
                 <p>Whenever any Concern Officer leaves the counter, he/she must:</p>
                 <ul>
                     <li>Lock his/her own cabinet</li>
@@ -601,7 +484,7 @@
                 <h2 class="detail-title">Visitor Register</h2>
             </div>
             <div class="detail-content">
-                <img src="Register .png" alt="Visitor Register" class="detail-image">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Register .png" alt="Visitor Register" class="detail-image">
                 <p>Any person assigned by BM (other than Key Custodian) wants to enter in "Cash Vault" must sign in the register with:</p>
                 <ul>
                     <li>Purpose</li>
@@ -626,7 +509,7 @@
                 <h2 class="detail-title">Register Maintenance</h2>
             </div>
             <div class="detail-content">
-                <img src="Register Maintenance.png" alt="Register Maintenance" class="detail-image">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/Register Maintenance.png" alt="Register Maintenance" class="detail-image">
                 <p>BM/BOM will maintain this register with his/her opinion.</p>
                 <p>The register should be ready at all the time for any inspection.</p>
                 <p>Proper maintenance of registers ensures that all access records are accurately maintained and readily available for audit purposes.</p>
@@ -661,7 +544,7 @@
                 <h2 class="detail-title">CCTV Coverage</h2>
             </div>
             <div class="detail-content">
-                <img src="CCTV.png" alt="CCTV Coverage" class="detail-image">
+                <img src="/Users/abirsmac/Desktop/Draft/Pictures/CCTV.png" alt="CCTV Coverage" class="detail-image">
                 <p>Ensure CCTV coverage in every area/corner of cash area including:</p>
                 <ul>
                     <li>HT (High Tension) areas</li>
@@ -690,111 +573,6 @@
                     const cardId = this.getAttribute('data-card');
                     showDetailView(cardId);
                 });
-            });
-            
-            // Background upload functionality
-            const uploadBgBtn = document.getElementById('uploadBgBtn');
-            const uploadBgContainer = document.getElementById('uploadBgContainer');
-            const bgUploadArea = document.getElementById('bgUploadArea');
-            const bgUpload = document.getElementById('bgUpload');
-            const applyBgBtn = document.getElementById('applyBgBtn');
-            const closeBgUploadBtn = document.getElementById('closeBgUploadBtn');
-            
-            // Show upload container for background
-            uploadBgBtn.addEventListener('click', function() {
-                uploadBgContainer.style.display = 'block';
-            });
-            
-            // Close upload container
-            closeBgUploadBtn.addEventListener('click', function() {
-                uploadBgContainer.style.display = 'none';
-            });
-            
-            // Trigger file input when upload area is clicked
-            bgUploadArea.addEventListener('click', function() {
-                bgUpload.click();
-            });
-            
-            // Handle file selection for background
-            bgUpload.addEventListener('change', function(e) {
-                if (e.target.files && e.target.files[0]) {
-                    const fileName = e.target.files[0].name;
-                    bgUploadArea.innerHTML = `
-                        <i class="fas fa-file-image"></i>
-                        <p>Selected: ${fileName}</p>
-                        <p class="small">Click "Apply Background" to use this image</p>
-                    `;
-                }
-            });
-            
-            // Apply background image
-            applyBgBtn.addEventListener('click', function() {
-                if (bgUpload.files && bgUpload.files[0]) {
-                    const reader = new FileReader();
-                    
-                    reader.onload = function(e) {
-                        document.body.style.backgroundImage = `url(${e.target.result})`;
-                        document.body.style.backgroundSize = 'cover';
-                        document.body.style.backgroundPosition = 'center';
-                        document.body.style.animation = 'none';
-                        
-                        // Save to localStorage
-                        localStorage.setItem('customBackground', e.target.result);
-                        
-                        // Close upload container
-                        uploadBgContainer.style.display = 'none';
-                        
-                        // Reset upload area
-                        bgUploadArea.innerHTML = `
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p>Click to select an image or drag and drop</p>
-                            <p class="small">Recommended: 1920x1080 or larger, JPG/PNG format</p>
-                        `;
-                        bgUpload.value = '';
-                    };
-                    
-                    reader.readAsDataURL(bgUpload.files[0]);
-                } else {
-                    alert('Please select an image first.');
-                }
-            });
-            
-            // Check for saved background on page load
-            const savedBackground = localStorage.getItem('customBackground');
-            if (savedBackground) {
-                document.body.style.backgroundImage = `url(${savedBackground})`;
-                document.body.style.backgroundSize = 'cover';
-                document.body.style.backgroundPosition = 'center';
-                document.body.style.animation = 'none';
-            }
-            
-            // Add drag and drop functionality for background
-            bgUploadArea.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                bgUploadArea.style.borderColor = '#e8eaf6';
-                bgUploadArea.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-            });
-            
-            bgUploadArea.addEventListener('dragleave', function() {
-                bgUploadArea.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                bgUploadArea.style.backgroundColor = 'transparent';
-            });
-            
-            bgUploadArea.addEventListener('drop', function(e) {
-                e.preventDefault();
-                bgUploadArea.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                bgUploadArea.style.backgroundColor = 'transparent';
-                
-                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                    bgUpload.files = e.dataTransfer.files;
-                    
-                    const fileName = e.dataTransfer.files[0].name;
-                    bgUploadArea.innerHTML = `
-                        <i class="fas fa-file-image"></i>
-                        <p>Selected: ${fileName}</p>
-                        <p class="small">Click "Apply Background" to use this image</p>
-                    `;
-                }
             });
         });
         
