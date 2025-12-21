@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cash Premises Access Control</title>
+    <title>Bank Operations Manual</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -23,9 +23,10 @@
         }
         
         body {
-            /* BACKGROUND SETTING - You can change this URL to your desired background image */
             background: url('BG_Draft.png') no-repeat center center fixed;
-           
+            background-size: cover;
+            min-height: 100vh;
+            padding: 20px;
         }
         
         .container {
@@ -52,7 +53,7 @@
             position: relative;
             display: inline-block;
             color: #1a237e;
-            background-color: #ffffff(26, 35, 126, 0.8);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 10px 30px;
             border-radius: 10px;
         }
@@ -66,6 +67,28 @@
             height: 4px;
             background: var(--light-blue);
             border-radius: 2px;
+        }
+        
+        .page-navigation {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-button {
+            background: var(--primary-blue);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        .nav-button:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
         }
         
         .cards-container {
@@ -187,7 +210,6 @@
             color: var(--text-color);
         }
         
-        /* UPDATED IMAGE STYLES - BORDERLESS */
         .detail-image {
             width: 100%;
             max-height: 400px;
@@ -265,7 +287,6 @@
                 font-size: 2.2rem;
             }
             
-            /* Mobile-specific image adjustments */
             .detail-image {
                 max-height: 300px;
             }
@@ -309,266 +330,618 @@
                 font-size: 1.2rem;
             }
         }
+        
+        /* Home button */
+        .home-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .home-button:hover {
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
+    <button class="home-button" onclick="showMainMenu()">
+        <i class="fas fa-home"></i> Main Menu
+    </button>
+    
     <div class="container">
-        <header>
-            <h1>Cash Premises Access Control</h1>
-        </header>
-        
-        <div class="cards-container" id="cardsContainer">
-            <!-- Card 1 -->
-            <div class="card" data-card="1">
-                <div class="card-number">1</div>
-                <div class="card-icon">
-                    <i class="fas fa-ban"></i>
+        <!-- Main Menu Page -->
+        <div id="mainMenu">
+            <header>
+                <h1>Branch Operation Manual</h1>
+            </header>
+            
+            <div class="cards-container">
+                <!-- Cash Premises Access Control Card -->
+                <div class="card" data-card="access-control">
+                    <div class="card-number">1</div>
+                    <div class="card-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="card-title">Cash Premises Access Control</h3>
                 </div>
-                <h3 class="card-title">Entry Restricted Area</h3>
+                
+                <!-- Additional cards for other sections -->
+                <div class="card" data-card="security-cash">
+                    <div class="card-number">2</div>
+                    <div class="card-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="card-title">Security in Cash Area</h3>
+                </div>
+                
+                <div class="card" data-card="vault-management">
+                    <div class="card-number">3</div>
+                    <div class="card-icon">
+                        <i class="fas fa-vault"></i>
+                    </div>
+                    <h3 class="card-title">Counter, Vault Limit & Cash Management</h3>
+                </div>
+                
+                <div class="card" data-card="cash-deposit">
+                    <div class="card-number">4</div>
+                    <div class="card-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3 class="card-title">Cash Deposit</h3>
+                </div>
+                
+                <div class="card" data-card="cheque-deposit">
+                    <div class="card-number">5</div>
+                    <div class="card-icon">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <h3 class="card-title">Cheque Deposit</h3>
+                </div>
+                
+                <div class="card" data-card="cheque-management">
+                    <div class="card-number">6</div>
+                    <div class="card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3 class="card-title">Returned Cheque Management</h3>
+                </div>
+                
+                <div class="card" data-card="pay-order">
+                    <div class="card-number">7</div>
+                    <div class="card-icon">
+                        <i class="fas fa-stamp"></i>
+                    </div>
+                    <h3 class="card-title">Pay Order, DD & Banking Services</h3>
+                </div>
+                
+                <div class="card" data-card="outstation-collection">
+                    <div class="card-number">8</div>
+                    <div class="card-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3 class="card-title">Outstation Bank Collection</h3>
+                </div>
+                
+                <div class="card" data-card="cash-withdrawal">
+                    <div class="card-number">9</div>
+                    <div class="card-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <h3 class="card-title">Cash Withdrawal</h3>
+                </div>
+                
+                <div class="card" data-card="prize-bond">
+                    <div class="card-number">10</div>
+                    <div class="card-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3 class="card-title">Prize Bond</h3>
+                </div>
+                
+                <div class="card" data-card="atm-management">
+                    <div class="card-number">11</div>
+                    <div class="card-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3 class="card-title">ATM Cash Management</h3>
+                </div>
+                
+                <div class="card" data-card="rcdm-process">
+                    <div class="card-number">12</div>
+                    <div class="card-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h3 class="card-title">RCDM GL & Claim Settlement</h3>
+                </div>
+                
+                <div class="card" data-card="cash-remit">
+                    <div class="card-number">13</div>
+                    <div class="card-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <h3 class="card-title">Cash Remit</h3>
+                </div>
+                
+                <div class="card" data-card="video-footage">
+                    <div class="card-number">14</div>
+                    <div class="card-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="card-title">Guideline for Video Footage</h3>
+                </div>
+                
+                <div class="card" data-card="key-maintenance">
+                    <div class="card-number">15</div>
+                    <div class="card-icon">
+                        <i class="fas fa-key"></i>
+                    </div>
+                    <h3 class="card-title">Key Maintenance</h3>
+                </div>
+                
+                <div class="card" data-card="gl-balancing">
+                    <div class="card-number">16</div>
+                    <div class="card-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3 class="card-title">GL Balancing & Expenses</h3>
+                </div>
+                
+                <div class="card" data-card="cash-report">
+                    <div class="card-number">17</div>
+                    <div class="card-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="card-title">Cash Transaction Report</h3>
+                </div>
+                
+                <div class="card" data-card="ecmr">
+                    <div class="card-number">18</div>
+                    <div class="card-icon">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <h3 class="card-title">ECMR</h3>
+                </div>
+                
+                <div class="card" data-card="sar-str">
+                    <div class="card-number">19</div>
+                    <div class="card-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h3 class="card-title">SAR/STR</h3>
+                </div>
+                
+                <div class="card" data-card="account-opening">
+                    <div class="card-number">20</div>
+                    <div class="card-icon">
+                        <i class="fas fa-user-plus"></i>
+                    </div>
+                    <h3 class="card-title">Account Opening</h3>
+                </div>
+                
+                <div class="card" data-card="fixed-deposit">
+                    <div class="card-number">21</div>
+                    <div class="card-icon">
+                        <i class="fas fa-piggy-bank"></i>
+                    </div>
+                    <h3 class="card-title">Fixed Deposit</h3>
+                </div>
+                
+                <div class="card" data-card="account-closing">
+                    <div class="card-number">22</div>
+                    <div class="card-icon">
+                        <i class="fas fa-user-minus"></i>
+                    </div>
+                    <h3 class="card-title">Account Closing</h3>
+                </div>
+                
+                <div class="card" data-card="deceased-account">
+                    <div class="card-number">23</div>
+                    <div class="card-icon">
+                        <i class="fas fa-heartbeat"></i>
+                    </div>
+                    <h3 class="card-title">Deceased Account Management</h3>
+                </div>
+                
+                <div class="card" data-card="garnishee">
+                    <div class="card-number">24</div>
+                    <div class="card-icon">
+                        <i class="fas fa-gavel"></i>
+                    </div>
+                    <h3 class="card-title">Garnishee Order Instructions</h3>
+                </div>
+                
+                <div class="card" data-card="data-change">
+                    <div class="card-number">25</div>
+                    <div class="card-icon">
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <h3 class="card-title">Address & Data Change</h3>
+                </div>
+                
+                <div class="card" data-card="debit-card">
+                    <div class="card-number">26</div>
+                    <div class="card-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3 class="card-title">Debit Card Management</h3>
+                </div>
+                
+                <div class="card" data-card="security-items">
+                    <div class="card-number">27</div>
+                    <div class="card-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="card-title">Security Items Management</h3>
+                </div>
+                
+                <div class="card" data-card="cheque-process">
+                    <div class="card-number">28</div>
+                    <div class="card-icon">
+                        <i class="fas fa-money-check"></i>
+                    </div>
+                    <h3 class="card-title">Cheque Processing</h3>
+                </div>
+                
+                <div class="card" data-card="dormant-account">
+                    <div class="card-number">29</div>
+                    <div class="card-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <h3 class="card-title">Dormant Account</h3>
+                </div>
+                
+                <div class="card" data-card="sanchaypatra">
+                    <div class="card-number">30</div>
+                    <div class="card-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="card-title">Sanchaypatra</h3>
+                </div>
+                
+                <div class="card" data-card="fund-transfer">
+                    <div class="card-number">31</div>
+                    <div class="card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3 class="card-title">Fund Transfer</h3>
+                </div>
+                
+                <div class="card" data-card="remittance">
+                    <div class="card-number">32</div>
+                    <div class="card-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="card-title">Remittance</h3>
+                </div>
+                
+                <div class="card" data-card="student-file">
+                    <div class="card-number">33</div>
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="card-title">Student File</h3>
+                </div>
+                
+                <div class="card" data-card="authorization">
+                    <div class="card-number">34</div>
+                    <div class="card-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3 class="card-title">Authorization</h3>
+                </div>
+                
+                <div class="card" data-card="holiday-visit">
+                    <div class="card-number">35</div>
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="card-title">Holiday & Surprise Visit</h3>
+                </div>
+                
+                <div class="card" data-card="mandate">
+                    <div class="card-number">36</div>
+                    <div class="card-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3 class="card-title">Mandate Instruction</h3>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Cash Premises Access Control Page -->
+        <div id="accessControlPage" style="display: none;">
+            <header>
+                <h1>Cash Premises Access Control</h1>
+            </header>
+            
+            <div class="page-navigation">
+                <button class="nav-button" onclick="showMainMenu()">
+                    <i class="fas fa-arrow-left"></i> Back to Main Menu
+                </button>
             </div>
             
-            <!-- Card 2 -->
-            <div class="card" data-card="2">
-                <div class="card-number">2</div>
-                <div class="card-icon">
-                    <i class="fas fa-user-check"></i>
+            <div class="cards-container" id="accessControlCards">
+                <!-- Card 1 -->
+                <div class="card" data-card="1">
+                    <div class="card-number">1</div>
+                    <div class="card-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h3 class="card-title">Entry Restricted Area</h3>
                 </div>
-                <h3 class="card-title">Authorized Persons</h3>
+                
+                <!-- Card 2 -->
+                <div class="card" data-card="2">
+                    <div class="card-number">2</div>
+                    <div class="card-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h3 class="card-title">Authorized Persons</h3>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="card" data-card="3">
+                    <div class="card-number">3</div>
+                    <div class="card-icon">
+                        <i class="fas fa-door-closed"></i>
+                    </div>
+                    <h3 class="card-title">Access Control</h3>
+                </div>
+                
+                <!-- Card 4 -->
+                <div class="card" data-card="4">
+                    <div class="card-number">4</div>
+                    <div class="card-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="card-title">Security Protocols</h3>
+                </div>
+                
+                <!-- Card 5 -->
+                <div class="card" data-card="5">
+                    <div class="card-number">5</div>
+                    <div class="card-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="card-title">Visitor Register</h3>
+                </div>
+                
+                <!-- Card 6 -->
+                <div class="card" data-card="6">
+                    <div class="card-number">6</div>
+                    <div class="card-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h3 class="card-title">Register Maintenance</h3>
+                </div>
+                
+                <!-- Card 7 -->
+                <div class="card" data-card="7">
+                    <div class="card-number">7</div>
+                    <div class="card-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h3 class="card-title">Access Deactivation</h3>
+                </div>
+                
+                <!-- Card 8 -->
+                <div class="card" data-card="8">
+                    <div class="card-number">8</div>
+                    <div class="card-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="card-title">CCTV Coverage</h3>
+                </div>
             </div>
             
-            <!-- Card 3 -->
-            <div class="card" data-card="3">
-                <div class="card-number">3</div>
-                <div class="card-icon">
-                    <i class="fas fa-door-closed"></i>
+            <!-- Detail Views for Access Control -->
+            <div class="detail-view" id="detailView1">
+                <div class="detail-header">
+                    <div class="detail-icon">
+                        <i class="fas fa-ban"></i>
+                    </div>
+                    <h2 class="detail-title">Entry Restricted Area</h2>
                 </div>
-                <h3 class="card-title">Access Control</h3>
+                <div class="detail-content">
+                    <img src="Entry_Restricted.png" class="detail-image">
+                    <p>Cash premises are Entry Restricted area.</p>
+                    <p>This means that only authorized personnel are allowed to enter these areas. Unauthorized access is strictly prohibited and may result in disciplinary action.</p>
+                </div>
+                <div class="back-button" onclick="showCardsView()">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </div>
             </div>
             
-            <!-- Card 4 -->
-            <div class="card" data-card="4">
-                <div class="card-number">4</div>
-                <div class="card-icon">
-                    <i class="fas fa-lock"></i>
+            <div class="detail-view" id="detailView2">
+                <div class="detail-header">
+                    <div class="detail-icon">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h2 class="detail-title">Authorized Persons</h2>
                 </div>
-                <h3 class="card-title">Security Protocols</h3>
+                <div class="detail-content">
+                    <img src="Authorized Person.png" alt="Authorized Personnel" class="detail-image">
+                    <p><strong>Only Concern Officer:</strong></p>
+                    <p><strong>Vault Key Custodian</strong></p>
+                    <p><strong>BOM, Branch Manager</strong></p>
+                    <p><strong>MD</strong></p>
+                    <p><strong>DMD</strong></p>
+                    <p><strong>HORB HOBB</strong></p>
+                    <p><strong>Regional Head of Branch banking</strong></p>
+                    <p><strong>HORM, HORMD, HOL & RA</strong></p>
+                    <p><strong>Internal & External Audit Team</strong></p>
+                    <p><strong>Custodian of Security Item & Locker</strong> (Master Key, Surrendered Key, and Unrented Key)</p>
+                    <p><strong>Cash Sorter/Support Staff</strong></p>
+                    <p><strong>Designated persons</strong> whom are authorized to enter into Cash Area.</p>
+                </div>
+                <div class="back-button" onclick="showCardsView()">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </div>
             </div>
             
-            <!-- Card 5 -->
-            <div class="card" data-card="5">
-                <div class="card-number">5</div>
-                <div class="card-icon">
-                    <i class="fas fa-book"></i>
+            <div class="detail-view" id="detailView3">
+                <div class="detail-header">
+                    <div class="detail-icon">
+                        <i class="fas fa-door-closed"></i>
+                    </div>
+                    <h2 class="detail-title">Access Control</h2>
                 </div>
-                <h3 class="card-title">Visitor Register</h3>
+                <div class="detail-content">
+                    <img src="Access Control.png" alt="Access Control System" class="detail-image">
+                    <p>All authorized person must deactivate the Access Control door by using Security codes/ID card.</p>
+                    <p>"Entry Restricted" mark should be hanged on the Access Control door.</p>
+                    <p>Access control systems help ensure that only authorized personnel can enter sensitive areas, maintaining security and accountability.</p>
+                </div>
+                <div class="back-button" onclick="showCardsView()">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </div>
             </div>
             
-            <!-- Card 6 -->
-            <div class="card" data-card="6">
-                <div class="card-number">6</div>
-                <div class="card-icon">
-                    <i class="fas fa-clipboard-check"></i>
+            <div class="detail-view" id="detailView4">
+                <div class="detail-header">
+                    <div class="detail-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h2 class="detail-title">Security Protocols</h2>
                 </div>
-                <h3 class="card-title">Register Maintenance</h3>
+                <div class="detail-content">
+                    <img src="Security Protocol.png" alt="Security Protocols" class="detail-image">
+                    <p>Whenever any Concern Officer leaves the counter, he/she must:</p>
+                    <ul>
+                        <li>Lock his/her own cabinet</li>
+                        <li>Lock his/her computer screen by pressing (Windows Key+ L)</li>
+                        <li>Inform his/her superior before leaving the counter/premises</li>
+                    </ul>
+                    <p>These protocols ensure that sensitive information and assets remain secure even when personnel are temporarily away from their stations.</p>
+                </div>
+                <div class="back-button" onclick="showCardsView()">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </div>
             </div>
             
-            <!-- Card 7 -->
-            <div class="card" data-card="7">
-                <div class="card-number">7</div>
-                <div class="card-icon">
-                    <i class="fas fa-id-card"></i>
+            <div class="detail-view" id="detailView5">
+                <div class="detail-header">
+                    <div class="detail-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h2 class="detail-title">Visitor Register</h2>
                 </div>
-                <h3 class="card-title">Access Deactivation</h3>
+                <div class="detail-content">
+                    <img src="Register .png" alt="Visitor Register" class="detail-image">
+                    <p>Any person assigned by BM (other than Key Custodian) wants to enter in "Cash Vault" must sign in the register with:</p>
+                    <ul>
+                        <li>Purpose</li>
+                        <li>PIN</li>
+                        <li>Time in</li>
+                        <li>Time out</li>
+                        <li>Dept. name</li>
+                    </ul>
+                    <p>All entries must be made in the presence of key custodian(s).</p>
+                    <p>The visitor register provides a clear audit trail of who accessed the cash vault and when, enhancing security and accountability.</p>
+                </div>
+                <div class="back-button" onclick="showCardsView()">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </div>
             </div>
             
-            <!-- Card 8 -->
-            <div class="card" data-card="8">
-                <div class="card-number">8</div>
-                <div class="card-icon">
-                    <i class="fas fa-video"></i>
+            <div class="detail-view" id="detailView6">
+                <div class="detail-header">
+                    <div class="detail-icon">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h2 class="detail-title">Register Maintenance</h2>
                 </div>
-                <h3 class="card-title">CCTV Coverage</h3>
+                <div class="detail-content">
+                    <img src="Register Maintenance.png" alt="Register Maintenance" class="detail-image">
+                    <p>BM/BOM will maintain this register with his/her opinion.</p>
+                    <p>The register should be ready at all the time for any inspection.</p>
+                    <p>Proper maintenance of registers ensures that all access records are accurately maintained and readily available for audit purposes.</p>
+                </div>
+                <div class="back-button" onclick="showCardsView()">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </div>
+            </div>
+            
+            <div class="detail-view" id="detailView7">
+                <div class="detail-header">
+                    <div class="detail-icon">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <h2 class="detail-title">Access Deactivation</h2>
+                </div>
+                <div class="detail-content">
+                    <img src="Access Deactivation.png" alt="Access Deactivation" class="detail-image">
+                    <p>All authorized person must deactivate the Access Control door by using Security codes/ID card.</p>
+                    <p>Proper deactivation ensures that the access control system functions as intended, maintaining the security of the cash premises.</p>
+                </div>
+                <div class="back-button" onclick="showCardsView()">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </div>
+            </div>
+            
+            <div class="detail-view" id="detailView8">
+                <div class="detail-header">
+                    <div class="detail-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h2 class="detail-title">CCTV Coverage</h2>
+                </div>
+                <div class="detail-content">
+                    <img src="CCTV.png" alt="CCTV Coverage" class="detail-image">
+                    <p>Ensure CCTV coverage in every area/corner of cash area including:</p>
+                    <ul>
+                        <li>HT (High Tension) areas</li>
+                        <li>Cash sorter desk</li>
+                    </ul>
+                    <p>DVR time should be matched with real time.</p>
+                    <p>Comprehensive CCTV coverage provides visual monitoring and recording of all activities in cash areas, serving as both a deterrent and an investigative tool.</p>
+                </div>
+                <div class="back-button" onclick="showCardsView()">
+                    <i class="fas fa-arrow-left"></i> Back to Overview
+                </div>
             </div>
         </div>
         
-        <!-- Detail Views -->
-        <div class="detail-view" id="detailView1">
-            <div class="detail-header">
-                <div class="detail-icon">
-                    <i class="fas fa-ban"></i>
-                </div>
-                <h2 class="detail-title">Entry Restricted Area</h2>
-            </div>
-            <div class="detail-content">
-                <img src="Entry_Restricted.png" class="detail-image">
-                <p>Cash premises are Entry Restricted area.</p>
-                <p>This means that only authorized personnel are allowed to enter these areas. Unauthorized access is strictly prohibited and may result in disciplinary action.</p>
-            </div>
-            <div class="back-button" onclick="showCardsView()">
-                <i class="fas fa-arrow-left"></i> Back to Overview
-            </div>
-        </div>
-        
-        <div class="detail-view" id="detailView2">
-            <div class="detail-header">
-                <div class="detail-icon">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <h2 class="detail-title">Authorized Persons</h2>
-            </div>
-            <div class="detail-content">
-                <img src="Authorized Person.png" alt="Authorized Personnel" class="detail-image">
-                <p><strong>Only Concern Officer:</strong></p>
-                <p><strong>Vault Key Custodian</strong></p>
-                <p><strong>BOM, Branch Manager</strong></p>
-                <p><strong>MD</strong></p>
-                <p><strong>DMD</strong></p>
-                <p><strong>HORB HOBB</strong></p>
-                <p><strong>Regional Head of Branch banking</strong></p>
-                <p><strong>HORM, HORMD, HOL & RA</strong></p>
-                <p><strong>Internal & External Audit Team</strong></p>
-                <p><strong>Custodian of Security Item & Locker</strong> (Master Key, Surrendered Key, and Unrented Key)</p>
-                <p><strong>Cash Sorter/Support Staff</strong></p>
-                <p><strong>Designated persons</strong> whom are authorized to enter into Cash Area.</p>
-            </div>
-            <div class="back-button" onclick="showCardsView()">
-                <i class="fas fa-arrow-left"></i> Back to Overview
-            </div>
-        </div>
-        
-        <div class="detail-view" id="detailView3">
-            <div class="detail-header">
-                <div class="detail-icon">
-                    <i class="fas fa-door-closed"></i>
-                </div>
-                <h2 class="detail-title">Access Control</h2>
-            </div>
-            <div class="detail-content">
-                <img src="Access Control.png" alt="Access Control System" class="detail-image">
-                <p>All authorized person must deactivate the Access Control door by using Security codes/ID card.</p>
-                <p>"Entry Restricted" mark should be hanged on the Access Control door.</p>
-                <p>Access control systems help ensure that only authorized personnel can enter sensitive areas, maintaining security and accountability.</p>
-            </div>
-            <div class="back-button" onclick="showCardsView()">
-                <i class="fas fa-arrow-left"></i> Back to Overview
-            </div>
-        </div>
-        
-        <div class="detail-view" id="detailView4">
-            <div class="detail-header">
-                <div class="detail-icon">
-                    <i class="fas fa-lock"></i>
-                </div>
-                <h2 class="detail-title">Security Protocols</h2>
-            </div>
-            <div class="detail-content">
-                <img src="Security Protocol.png" alt="Security Protocols" class="detail-image">
-                <p>Whenever any Concern Officer leaves the counter, he/she must:</p>
-                <ul>
-                    <li>Lock his/her own cabinet</li>
-                    <li>Lock his/her computer screen by pressing (Windows Key+ L)</li>
-                    <li>Inform his/her superior before leaving the counter/premises</li>
-                </ul>
-                <p>These protocols ensure that sensitive information and assets remain secure even when personnel are temporarily away from their stations.</p>
-            </div>
-            <div class="back-button" onclick="showCardsView()">
-                <i class="fas fa-arrow-left"></i> Back to Overview
-            </div>
-        </div>
-        
-        <div class="detail-view" id="detailView5">
-            <div class="detail-header">
-                <div class="detail-icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <h2 class="detail-title">Visitor Register</h2>
-            </div>
-            <div class="detail-content">
-                <img src="Register .png" alt="Visitor Register" class="detail-image">
-                <p>Any person assigned by BM (other than Key Custodian) wants to enter in "Cash Vault" must sign in the register with:</p>
-                <ul>
-                    <li>Purpose</li>
-                    <li>PIN</li>
-                    <li>Time in</li>
-                    <li>Time out</li>
-                    <li>Dept. name</li>
-                </ul>
-                <p>All entries must be made in the presence of key custodian(s).</p>
-                <p>The visitor register provides a clear audit trail of who accessed the cash vault and when, enhancing security and accountability.</p>
-            </div>
-            <div class="back-button" onclick="showCardsView()">
-                <i class="fas fa-arrow-left"></i> Back to Overview
-            </div>
-        </div>
-        
-        <div class="detail-view" id="detailView6">
-            <div class="detail-header">
-                <div class="detail-icon">
-                    <i class="fas fa-clipboard-check"></i>
-                </div>
-                <h2 class="detail-title">Register Maintenance</h2>
-            </div>
-            <div class="detail-content">
-                <img src="Register Maintenance.png" alt="Register Maintenance" class="detail-image">
-                <p>BM/BOM will maintain this register with his/her opinion.</p>
-                <p>The register should be ready at all the time for any inspection.</p>
-                <p>Proper maintenance of registers ensures that all access records are accurately maintained and readily available for audit purposes.</p>
-            </div>
-            <div class="back-button" onclick="showCardsView()">
-                <i class="fas fa-arrow-left"></i> Back to Overview
-            </div>
-        </div>
-        
-        <div class="detail-view" id="detailView7">
-            <div class="detail-header">
-                <div class="detail-icon">
-                    <i class="fas fa-id-card"></i>
-                </div>
-                <h2 class="detail-title">Access Deactivation</h2>
-            </div>
-            <div class="detail-content">
-                <img src="Access Deactivation.png" alt="Access Deactivation" class="detail-image">
-                <p>All authorized person must deactivate the Access Control door by using Security codes/ID card.</p>
-                <p>Proper deactivation ensures that the access control system functions as intended, maintaining the security of the cash premises.</p>
-            </div>
-            <div class="back-button" onclick="showCardsView()">
-                <i class="fas fa-arrow-left"></i> Back to Overview
-            </div>
-        </div>
-        
-        <div class="detail-view" id="detailView8">
-            <div class="detail-header">
-                <div class="detail-icon">
-                    <i class="fas fa-video"></i>
-                </div>
-                <h2 class="detail-title">CCTV Coverage</h2>
-            </div>
-            <div class="detail-content">
-                <img src="CCTV.png" alt="CCTV Coverage" class="detail-image">
-                <p>Ensure CCTV coverage in every area/corner of cash area including:</p>
-                <ul>
-                    <li>HT (High Tension) areas</li>
-                    <li>Cash sorter desk</li>
-                </ul>
-                <p>DVR time should be matched with real time.</p>
-                <p>Comprehensive CCTV coverage provides visual monitoring and recording of all activities in cash areas, serving as both a deterrent and an investigative tool.</p>
-            </div>
-            <div class="back-button" onclick="showCardsView()">
-                <i class="fas fa-arrow-left"></i> Back to Overview
-            </div>
+        <!-- Placeholder for other sections (would be similar structure) -->
+        <div id="otherSections" style="display: none;">
+            <!-- Other section pages would go here with similar structure -->
         </div>
         
         <footer class="footer">
-            <p>Cash Premises Access Control System</p>
+            <p>Branch Operation Manual System</p>
         </footer>
     </div>
 
     <script>
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            // Add click events to all cards
-            const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
+            // Add click events to main menu cards
+            const mainCards = document.querySelectorAll('#mainMenu .card');
+            mainCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const cardId = this.getAttribute('data-card');
+                    if(cardId === 'access-control') {
+                        showAccessControlPage();
+                    } else {
+                        showSectionPage(cardId);
+                    }
+                });
+            });
+            
+            // Add click events to access control cards
+            const accessCards = document.querySelectorAll('#accessControlCards .card');
+            accessCards.forEach(card => {
                 card.addEventListener('click', function() {
                     const cardId = this.getAttribute('data-card');
                     showDetailView(cardId);
@@ -576,9 +949,36 @@
             });
         });
         
-        // Function to show detail view with animation
+        // Function to show main menu
+        function showMainMenu() {
+            document.getElementById('mainMenu').style.display = 'block';
+            document.getElementById('accessControlPage').style.display = 'none';
+            document.getElementById('otherSections').style.display = 'none';
+            showCardsView(); // Reset to cards view if coming from detail
+        }
+        
+        // Function to show access control page
+        function showAccessControlPage() {
+            document.getElementById('mainMenu').style.display = 'none';
+            document.getElementById('accessControlPage').style.display = 'block';
+            document.getElementById('otherSections').style.display = 'none';
+            showCardsView(); // Reset to cards view
+        }
+        
+        // Function to show other section pages (placeholder)
+        function showSectionPage(sectionId) {
+            document.getElementById('mainMenu').style.display = 'none';
+            document.getElementById('accessControlPage').style.display = 'none';
+            document.getElementById('otherSections').style.display = 'block';
+            
+            // You would implement the specific section content here
+            alert(`Section "${sectionId}" would be implemented here with its own cards and detail views.`);
+            showMainMenu(); // Return to main menu for now
+        }
+        
+        // Function to show detail view with animation (for access control)
         function showDetailView(cardId) {
-            const cardsContainer = document.getElementById('cardsContainer');
+            const cardsContainer = document.getElementById('accessControlCards');
             const detailView = document.getElementById('detailView' + cardId);
             
             // Animate cards out
@@ -592,10 +992,10 @@
             }, 700);
         }
         
-        // Function to return to cards view
+        // Function to return to cards view (for access control)
         function showCardsView() {
             const detailViews = document.querySelectorAll('.detail-view');
-            const cardsContainer = document.getElementById('cardsContainer');
+            const cardsContainer = document.getElementById('accessControlCards');
             
             // Hide all detail views
             detailViews.forEach(view => {
