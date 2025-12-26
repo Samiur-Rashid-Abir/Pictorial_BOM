@@ -694,6 +694,122 @@
                 font-size: 0.9rem;
             }
         }
+/* Mobile menu overlay */
+.mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.mobile-menu-content {
+    background: white;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh;
+    border-radius: 15px;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+.mobile-menu-header {
+    background: var(--primary-blue);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mobile-menu-header h3 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.mobile-menu-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.mobile-menu-items {
+    padding: 10px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.mobile-menu-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.mobile-menu-item:last-child {
+    border-bottom: none;
+}
+
+.mobile-menu-item:hover {
+    background: var(--light-blue);
+    padding-left: 20px;
+}
+
+.mobile-menu-item i {
+    color: var(--primary-blue);
+    width: 20px;
+}
+
+@media (min-width: 481px) {
+    .mobile-menu-toggle,
+    .mobile-menu-overlay {
+        display: none !important;
+    }
+}
+
+/* Mobile swipe indicators */
+.swipe-hint {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    font-size: 0.8rem;
+    opacity: 0.7;
+    z-index: 999;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .swipe-hint {
+        display: block;
+        animation: pulse 2s infinite;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 0.9; }
+}
+
+
+
+
+        
     </style>
 </head>
 <body>
@@ -2004,6 +2120,86 @@
             searchResults.style.display = 'none';
             searchResults.innerHTML = '';
         }
+// Mobile menu functionality
+function toggleMobileMenu() {
+    const overlay = document.getElementById('mobileMenuOverlay');
+    const isVisible = overlay.style.display === 'block';
+    overlay.style.display = isVisible ? 'none' : 'block';
+    
+    if (!isVisible) {
+        populateMobileMenu();
+    }
+}
+
+function populateMobileMenu() {
+    const menuItems = document.querySelector('.mobile-menu-items');
+    const currentPage = getCurrentPage();
+    
+    let items = [];
+    
+    if (currentPage === 'main') {
+        // Add main sections
+        items = [
+            { icon: 'fas fa-lock', text: 'Cash Premises Access Control', action: () => showAccessControlPage() },
+            { icon: 'fas fa-shield-alt', text: 'Security in Cash Area', action: () => showSectionPage('security-cash') },
+            { icon: 'fas fa-home', text: 'Back to Home', action: () => showMainMenu() }
+        ];
+    } else if (currentPage === 'access-control') {
+        // Add access control subsections
+        items = [
+            { icon: 'fas fa-ban', text: 'Entry Restricted Area', action: () => showDetailView('1') },
+            { icon: 'fas fa-user-check', text: 'Authorized Persons', action: () => showDetailView('2') },
+            { icon: 'fas fa-door-closed', text: 'Access Control', action: () => showDetailView('3') },
+            { icon: 'fas fa-arrow-left', text: 'Back to Access Control', action: () => showCardsView() },
+            { icon: 'fas fa-home', text: 'Main Menu', action: () => showMainMenu() }
+        ];
+    }
+    
+    menuItems.innerHTML = '';
+    items.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'mobile-menu-item';
+        div.onclick = function() {
+            item.action();
+            toggleMobileMenu();
+        };
+        div.innerHTML = `
+            <i class="${item.icon}"></i>
+            <span>${item.text}</span>
+        `;
+        menuItems.appendChild(div);
+    });
+}
+
+function getCurrentPage() {
+    if (document.getElementById('mainMenu').style.display !== 'none') {
+        return 'main';
+    } else if (document.getElementById('accessControlPage').style.display !== 'none') {
+        return 'access-control';
+    }
+    return 'other';
+}
+
+// Close mobile menu when clicking outside
+document.addEventListener('click', function(event) {
+    const overlay = document.getElementById('mobileMenuOverlay');
+    const toggle = document.querySelector('.mobile-menu-toggle');
+    const content = document.querySelector('.mobile-menu-content');
+    
+    if (overlay && overlay.style.display === 'block' && 
+        !toggle.contains(event.target) && 
+        !content.contains(event.target)) {
+        toggleMobileMenu();
+    }
+});
+
+
+
+        
+
+
+
+        
     </script>
 </body>
 </html>
