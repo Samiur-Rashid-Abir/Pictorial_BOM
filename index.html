@@ -23,7 +23,7 @@
         }
         
         body {
-            background: url('BG_Draft.png') no-repeat center center fixed;
+            background: url('/Users/abirsmac/Desktop/BOM/BG_Draft.png') no-repeat center center fixed;
             background-size: cover;
             min-height: 100vh;
             padding: 20px;
@@ -352,12 +352,366 @@
             background: var(--accent-blue);
             transform: translateY(-2px);
         }
+
+        /* Animated Lines Container */
+        .animated-lines-container {
+            margin: 25px 0;
+            width: 100%;
+        }
+
+        /* Individual Line Box */
+        .line-box {
+            background: linear-gradient(135deg, var(--light-blue), #ffffff);
+            border-left: 5px solid var(--primary-blue);
+            border-radius: 8px;
+            padding: 18px 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateX(-50px);
+            opacity: 0;
+            animation: slideInLine 0.6s ease forwards;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .line-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(26, 35, 126, 0.05);
+            transition: width 0.5s ease;
+            z-index: 0;
+        }
+
+        .line-box:hover::before {
+            width: 100%;
+        }
+
+        .line-box:hover {
+            transform: translateX(0) scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Line Content */
+        .line-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .line-icon {
+            font-size: 1.3rem;
+            color: var(--primary-blue);
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .line-content span {
+            font-size: 1.05rem;
+            color: var(--text-color);
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* Animation Delays for Each Line */
+        .line-1 { animation-delay: 0.2s; }
+        .line-2 { animation-delay: 0.4s; }
+        .line-3 { animation-delay: 0.6s; }
+        .line-4 { animation-delay: 0.8s; }
+        .line-5 { animation-delay: 1.0s; }
+        .line-6 { animation-delay: 1.2s; }
+        .line-7 { animation-delay: 1.4s; }
+        .line-8 { animation-delay: 1.6s; }
+        .line-9 { animation-delay: 1.8s; }
+        .line-10 { animation-delay: 2.0s; }
+        .line-11 { animation-delay: 2.2s; }
+        .line-12 { animation-delay: 2.4s; }
+
+        /* Animation for Line Entry */
+        @keyframes slideInLine {
+            0% {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            70% {
+                transform: translateX(10px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Number Indicator for Lines */
+        .line-box::after {
+            content: attr(data-number);
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-blue);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .line-box:hover::after {
+            opacity: 1;
+        }
+
+        /* Responsive adjustments for animated lines */
+        @media (max-width: 768px) {
+            .line-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .line-icon {
+                align-self: flex-start;
+            }
+            
+            .line-content span {
+                font-size: 1rem;
+            }
+            
+            .line-box {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .animated-lines-container {
+                margin: 15px 0;
+            }
+            
+            .line-box {
+                padding: 12px 15px;
+                margin-bottom: 10px;
+            }
+            
+            .line-content span {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Search Container */
+        .search-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 300px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 8px;
+            padding: 10px 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus-within {
+            box-shadow: 0 6px 20px rgba(26, 35, 126, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .search-icon {
+            color: var(--primary-blue);
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        #searchInput {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+            color: var(--text-color);
+            background: transparent;
+        }
+
+        #searchInput::placeholder {
+            color: #666;
+            font-style: italic;
+        }
+
+        .clear-search {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clear-search:hover {
+            background: #f0f0f0;
+            color: var(--primary-blue);
+        }
+
+        /* Search Results */
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            margin-top: 5px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            max-height: 400px;
+            overflow-y: auto;
+            display: none;
+            z-index: 1001;
+        }
+
+        .search-result-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-result-item:hover {
+            background: var(--light-blue);
+            padding-left: 20px;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-icon {
+            color: var(--primary-blue);
+            font-size: 0.9rem;
+            width: 20px;
+        }
+
+        .search-result-text {
+            flex: 1;
+        }
+
+        .search-result-title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 3px;
+            font-size: 0.95rem;
+        }
+
+        .search-result-context {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .search-result-highlight {
+            background: yellow;
+            padding: 0 2px;
+            border-radius: 2px;
+            font-weight: bold;
+        }
+
+        .search-no-results {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* Search section indicator */
+        .search-section-indicator {
+            display: inline-block;
+            background: var(--accent-blue);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        /* Responsive adjustments for search */
+        @media (max-width: 768px) {
+            .search-container {
+                width: 250px;
+                top: 15px;
+                right: 15px;
+            }
+            
+            .search-box {
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .search-container {
+                width: 200px;
+                top: 10px;
+                right: 10px;
+            }
+            
+            .home-button {
+                top: 10px;
+                left: 10px;
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            
+            .search-box {
+                padding: 6px 10px;
+            }
+            
+            #searchInput {
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
     <button class="home-button" onclick="showMainMenu()">
         <i class="fas fa-home"></i> Main Menu
     </button>
+    
+    <!-- Search bar -->
+    <div class="search-container">
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search procedures, keywords...">
+            <button class="clear-search" onclick="clearSearch()" title="Clear search">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="searchResults" class="search-results"></div>
+    </div>
     
     <div class="container">
         <!-- Main Menu Page -->
@@ -753,11 +1107,55 @@
                     </div>
                     <h2 class="detail-title">Entry Restricted Area</h2>
                 </div>
+                
                 <div class="detail-content">
                     <img src="Entry_Restricted.png" class="detail-image">
-                    <p>Cash premises are Entry Restricted area.</p>
-                    <p>This means that only authorized personnel are allowed to enter these areas. Unauthorized access is strictly prohibited and may result in disciplinary action.</p>
+                    
+                    <div class="animated-lines-container">
+                        <div class="line-box line-1">
+                            <div class="line-content">
+                                <i class="fas fa-exclamation-circle line-icon"></i>
+                                <span>Cash premises are Entry Restricted area.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-2">
+                            <div class="line-content">
+                                <i class="fas fa-user-shield line-icon"></i>
+                                <span>This means that only authorized personnel are allowed to enter these areas.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-3">
+                            <div class="line-content">
+                                <i class="fas fa-ban line-icon"></i>
+                                <span>Unauthorized access is strictly prohibited.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-4">
+                            <div class="line-content">
+                                <i class="fas fa-gavel line-icon"></i>
+                                <span>Violation may result in disciplinary action.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-5">
+                            <div class="line-content">
+                                <i class="fas fa-clipboard-check line-icon"></i>
+                                <span>All access must be logged in the visitor register.</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-6">
+                            <div class="line-content">
+                                <i class="fas fa-eye line-icon"></i>
+                                <span>CCTV monitoring is active in all restricted areas.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="back-button" onclick="showCardsView()">
                     <i class="fas fa-arrow-left"></i> Back to Overview
                 </div>
@@ -770,21 +1168,90 @@
                     </div>
                     <h2 class="detail-title">Authorized Persons</h2>
                 </div>
+                
                 <div class="detail-content">
                     <img src="Authorized Person.png" alt="Authorized Personnel" class="detail-image">
-                    <p><strong>Only Concern Officer:</strong></p>
-                    <p><strong>Vault Key Custodian</strong></p>
-                    <p><strong>BOM, Branch Manager</strong></p>
-                    <p><strong>MD</strong></p>
-                    <p><strong>DMD</strong></p>
-                    <p><strong>HORB HOBB</strong></p>
-                    <p><strong>Regional Head of Branch banking</strong></p>
-                    <p><strong>HORM, HORMD, HOL & RA</strong></p>
-                    <p><strong>Internal & External Audit Team</strong></p>
-                    <p><strong>Custodian of Security Item & Locker</strong> (Master Key, Surrendered Key, and Unrented Key)</p>
-                    <p><strong>Cash Sorter/Support Staff</strong></p>
-                    <p><strong>Designated persons</strong> whom are authorized to enter into Cash Area.</p>
+                    
+                    <div class="animated-lines-container">
+                        <div class="line-box line-1">
+                            <div class="line-content">
+                                <i class="fas fa-user-tie line-icon"></i>
+                                <span><strong>Only Concern Officer</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-2">
+                            <div class="line-content">
+                                <i class="fas fa-key line-icon"></i>
+                                <span><strong>Vault Key Custodian</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-3">
+                            <div class="line-content">
+                                <i class="fas fa-user-md line-icon"></i>
+                                <span><strong>BOM, Branch Manager</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-4">
+                            <div class="line-content">
+                                <i class="fas fa-building line-icon"></i>
+                                <span><strong>MD / DMD</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-5">
+                            <div class="line-content">
+                                <i class="fas fa-users line-icon"></i>
+                                <span><strong>HORB HOBB</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-6">
+                            <div class="line-content">
+                                <i class="fas fa-compass line-icon"></i>
+                                <span><strong>Regional Head of Branch banking</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-7">
+                            <div class="line-content">
+                                <i class="fas fa-user-shield line-icon"></i>
+                                <span><strong>HORM, HORMD, HOL & RA</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-8">
+                            <div class="line-content">
+                                <i class="fas fa-search line-icon"></i>
+                                <span><strong>Internal & External Audit Team</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-9">
+                            <div class="line-content">
+                                <i class="fas fa-lock line-icon"></i>
+                                <span><strong>Custodian of Security Item & Locker</strong> (Master Key, Surrendered Key, and Unrented Key)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-10">
+                            <div class="line-content">
+                                <i class="fas fa-users-cog line-icon"></i>
+                                <span><strong>Cash Sorter/Support Staff</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-11">
+                            <div class="line-content">
+                                <i class="fas fa-id-card line-icon"></i>
+                                <span><strong>Designated persons</strong> who are authorized to enter into Cash Area</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="back-button" onclick="showCardsView()">
                     <i class="fas fa-arrow-left"></i> Back to Overview
                 </div>
@@ -797,12 +1264,48 @@
                     </div>
                     <h2 class="detail-title">Access Control</h2>
                 </div>
+                
                 <div class="detail-content">
                     <img src="Access Control.png" alt="Access Control System" class="detail-image">
-                    <p>All authorized person must deactivate the Access Control door by using Security codes/ID card.</p>
-                    <p>"Entry Restricted" mark should be hanged on the Access Control door.</p>
-                    <p>Access control systems help ensure that only authorized personnel can enter sensitive areas, maintaining security and accountability.</p>
+                    
+                    <div class="animated-lines-container">
+                        <div class="line-box line-1">
+                            <div class="line-content">
+                                <i class="fas fa-id-card-alt line-icon"></i>
+                                <span>All authorized persons must deactivate the Access Control door by using Security codes/ID card</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-2">
+                            <div class="line-content">
+                                <i class="fas fa-sign line-icon"></i>
+                                <span>"Entry Restricted" mark should be displayed on the Access Control door</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-3">
+                            <div class="line-content">
+                                <i class="fas fa-shield-alt line-icon"></i>
+                                <span>Access control systems help ensure that only authorized personnel can enter sensitive areas</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-4">
+                            <div class="line-content">
+                                <i class="fas fa-clipboard-list line-icon"></i>
+                                <span>Maintains security and accountability for all entries and exits</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-5">
+                            <div class="line-content">
+                                <i class="fas fa-history line-icon"></i>
+                                <span>Provides audit trail of all access attempts</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="back-button" onclick="showCardsView()">
                     <i class="fas fa-arrow-left"></i> Back to Overview
                 </div>
@@ -815,16 +1318,55 @@
                     </div>
                     <h2 class="detail-title">Security Protocols</h2>
                 </div>
+                
                 <div class="detail-content">
                     <img src="Security Protocol.png" alt="Security Protocols" class="detail-image">
-                    <p>Whenever any Concern Officer leaves the counter, he/she must:</p>
-                    <ul>
-                        <li>Lock his/her own cabinet</li>
-                        <li>Lock his/her computer screen by pressing (Windows Key+ L)</li>
-                        <li>Inform his/her superior before leaving the counter/premises</li>
-                    </ul>
-                    <p>These protocols ensure that sensitive information and assets remain secure even when personnel are temporarily away from their stations.</p>
+                    
+                    <div class="animated-lines-container">
+                        <div class="line-box line-1">
+                            <div class="line-content">
+                                <i class="fas fa-door-closed line-icon"></i>
+                                <span>Whenever any Concern Officer leaves the counter, he/she must:</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-2">
+                            <div class="line-content">
+                                <i class="fas fa-lock line-icon"></i>
+                                <span>Lock his/her own cabinet</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-3">
+                            <div class="line-content">
+                                <i class="fas fa-desktop line-icon"></i>
+                                <span>Lock his/her computer screen by pressing <strong>(Windows Key + L)</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-4">
+                            <div class="line-content">
+                                <i class="fas fa-user-tie line-icon"></i>
+                                <span>Inform his/her superior before leaving the counter/premises</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-5">
+                            <div class="line-content">
+                                <i class="fas fa-shield-alt line-icon"></i>
+                                <span>These protocols ensure that sensitive information and assets remain secure even when personnel are temporarily away from their stations</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-6">
+                            <div class="line-content">
+                                <i class="fas fa-handshake line-icon"></i>
+                                <span>Promotes a culture of security awareness and responsibility</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="back-button" onclick="showCardsView()">
                     <i class="fas fa-arrow-left"></i> Back to Overview
                 </div>
@@ -837,19 +1379,76 @@
                     </div>
                     <h2 class="detail-title">Visitor Register</h2>
                 </div>
+                
                 <div class="detail-content">
                     <img src="Register .png" alt="Visitor Register" class="detail-image">
-                    <p>Any person assigned by BM (other than Key Custodian) wants to enter in "Cash Vault" must sign in the register with:</p>
-                    <ul>
-                        <li>Purpose</li>
-                        <li>PIN</li>
-                        <li>Time in</li>
-                        <li>Time out</li>
-                        <li>Dept. name</li>
-                    </ul>
-                    <p>All entries must be made in the presence of key custodian(s).</p>
-                    <p>The visitor register provides a clear audit trail of who accessed the cash vault and when, enhancing security and accountability.</p>
+                    
+                    <div class="animated-lines-container">
+                        <div class="line-box line-1">
+                            <div class="line-content">
+                                <i class="fas fa-user-plus line-icon"></i>
+                                <span>Any person assigned by BM (other than Key Custodian) wanting to enter the "Cash Vault" must sign in the register</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-2">
+                            <div class="line-content">
+                                <i class="fas fa-edit line-icon"></i>
+                                <span>Required information to be recorded:</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-3">
+                            <div class="line-content">
+                                <i class="fas fa-bullseye line-icon"></i>
+                                <span><strong>Purpose</strong> of visit</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-4">
+                            <div class="line-content">
+                                <i class="fas fa-key line-icon"></i>
+                                <span><strong>PIN</strong> number</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-5">
+                            <div class="line-content">
+                                <i class="fas fa-sign-in-alt line-icon"></i>
+                                <span><strong>Time in</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-6">
+                            <div class="line-content">
+                                <i class="fas fa-sign-out-alt line-icon"></i>
+                                <span><strong>Time out</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-7">
+                            <div class="line-content">
+                                <i class="fas fa-building line-icon"></i>
+                                <span><strong>Department name</strong></span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-8">
+                            <div class="line-content">
+                                <i class="fas fa-user-shield line-icon"></i>
+                                <span>All entries must be made in the presence of key custodian(s)</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-9">
+                            <div class="line-content">
+                                <i class="fas fa-history line-icon"></i>
+                                <span>The visitor register provides a clear audit trail of who accessed the cash vault and when, enhancing security and accountability</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="back-button" onclick="showCardsView()">
                     <i class="fas fa-arrow-left"></i> Back to Overview
                 </div>
@@ -862,12 +1461,55 @@
                     </div>
                     <h2 class="detail-title">Register Maintenance</h2>
                 </div>
+                
                 <div class="detail-content">
                     <img src="Register Maintenance.png" alt="Register Maintenance" class="detail-image">
-                    <p>BM/BOM will maintain this register with his/her opinion.</p>
-                    <p>The register should be ready at all the time for any inspection.</p>
-                    <p>Proper maintenance of registers ensures that all access records are accurately maintained and readily available for audit purposes.</p>
+                    
+                    <div class="animated-lines-container">
+                        <div class="line-box line-1">
+                            <div class="line-content">
+                                <i class="fas fa-user-tie line-icon"></i>
+                                <span>BM/BOM will maintain this register with his/her opinion</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-2">
+                            <div class="line-content">
+                                <i class="fas fa-clock line-icon"></i>
+                                <span>The register should be ready at all times for any inspection</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-3">
+                            <div class="line-content">
+                                <i class="fas fa-file-alt line-icon"></i>
+                                <span>Proper maintenance of registers ensures that all access records are accurately maintained</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-4">
+                            <div class="line-content">
+                                <i class="fas fa-search line-icon"></i>
+                                <span>Readily available for audit purposes</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-5">
+                            <div class="line-content">
+                                <i class="fas fa-check-circle line-icon"></i>
+                                <span>Ensures compliance with regulatory requirements</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-6">
+                            <div class="line-content">
+                                <i class="fas fa-chart-line line-icon"></i>
+                                <span>Helps in tracking and analyzing access patterns over time</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="back-button" onclick="showCardsView()">
                     <i class="fas fa-arrow-left"></i> Back to Overview
                 </div>
@@ -880,11 +1522,48 @@
                     </div>
                     <h2 class="detail-title">Access Deactivation</h2>
                 </div>
+                
                 <div class="detail-content">
                     <img src="Access Deactivation.png" alt="Access Deactivation" class="detail-image">
-                    <p>All authorized person must deactivate the Access Control door by using Security codes/ID card.</p>
-                    <p>Proper deactivation ensures that the access control system functions as intended, maintaining the security of the cash premises.</p>
+                    
+                    <div class="animated-lines-container">
+                        <div class="line-box line-1">
+                            <div class="line-content">
+                                <i class="fas fa-id-card-alt line-icon"></i>
+                                <span>All authorized persons must deactivate the Access Control door by using Security codes/ID card</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-2">
+                            <div class="line-content">
+                                <i class="fas fa-power-off line-icon"></i>
+                                <span>Proper deactivation ensures that the access control system functions as intended</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-3">
+                            <div class="line-content">
+                                <i class="fas fa-shield-alt line-icon"></i>
+                                <span>Maintains the security integrity of the cash premises</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-4">
+                            <div class="line-content">
+                                <i class="fas fa-history line-icon"></i>
+                                <span>Creates a log of all deactivation events for security monitoring</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-5">
+                            <div class="line-content">
+                                <i class="fas fa-user-check line-icon"></i>
+                                <span>Ensures only current authorized personnel can access restricted areas</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="back-button" onclick="showCardsView()">
                     <i class="fas fa-arrow-left"></i> Back to Overview
                 </div>
@@ -897,16 +1576,69 @@
                     </div>
                     <h2 class="detail-title">CCTV Coverage</h2>
                 </div>
+                
                 <div class="detail-content">
                     <img src="CCTV.png" alt="CCTV Coverage" class="detail-image">
-                    <p>Ensure CCTV coverage in every area/corner of cash area including:</p>
-                    <ul>
-                        <li>HT (High Tension) areas</li>
-                        <li>Cash sorter desk</li>
-                    </ul>
-                    <p>DVR time should be matched with real time.</p>
-                    <p>Comprehensive CCTV coverage provides visual monitoring and recording of all activities in cash areas, serving as both a deterrent and an investigative tool.</p>
+                    
+                    <div class="animated-lines-container">
+                        <div class="line-box line-1">
+                            <div class="line-content">
+                                <i class="fas fa-video line-icon"></i>
+                                <span>Ensure CCTV coverage in every area/corner of cash area including:</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-2">
+                            <div class="line-content">
+                                <i class="fas fa-bolt line-icon"></i>
+                                <span>HT (Head Teller) areas</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-3">
+                            <div class="line-content">
+                                <i class="fas fa-money-bill-wave line-icon"></i>
+                                <span>Cash sorter desk</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-4">
+                            <div class="line-content">
+                                <i class="fas fa-clock line-icon"></i>
+                                <span>DVR time should be matched with real time</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-5">
+                            <div class="line-content">
+                                <i class="fas fa-eye line-icon"></i>
+                                <span>Comprehensive CCTV coverage provides visual monitoring and recording of all activities in cash areas</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-6">
+                            <div class="line-content">
+                                <i class="fas fa-user-shield line-icon"></i>
+                                <span>Serves as both a deterrent and an investigative tool</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-7">
+                            <div class="line-content">
+                                <i class="fas fa-hdd line-icon"></i>
+                                <span>Ensure proper storage and backup of CCTV footage as per regulatory requirements</span>
+                            </div>
+                        </div>
+                        
+                        <div class="line-box line-8">
+                            <div class="line-content">
+                                <i class="fas fa-exclamation-triangle line-icon"></i>
+                                <span>Regular maintenance and testing of CCTV systems is mandatory</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
                 <div class="back-button" onclick="showCardsView()">
                     <i class="fas fa-arrow-left"></i> Back to Overview
                 </div>
@@ -947,6 +1679,9 @@
                     showDetailView(cardId);
                 });
             });
+            
+            // Initialize search functionality
+            initializeSearch();
         });
         
         // Function to show main menu
@@ -1012,6 +1747,262 @@
             setTimeout(() => {
                 cardsContainer.classList.remove('slide-in');
             }, 700);
+        }
+
+        // Search functionality
+        let searchableContent = [];
+        const searchInput = document.getElementById('searchInput');
+        const searchResults = document.getElementById('searchResults');
+        const searchContainer = document.querySelector('.search-container');
+
+        // Initialize search
+        function initializeSearch() {
+            // Define searchable content
+            searchableContent = [
+                // Cash Premises Access Control
+                { 
+                    id: 'access-control-1', 
+                    title: 'Entry Restricted Area', 
+                    keywords: ['entry restricted', 'cash premises', 'restricted area', 'access control'], 
+                    content: 'Cash premises are Entry Restricted area. Only authorized personnel allowed.', 
+                    section: 'Cash Premises Access Control',
+                    icon: 'fas fa-ban',
+                    action: () => showAccessControlDetail('1')
+                },
+                { 
+                    id: 'access-control-2', 
+                    title: 'Authorized Persons', 
+                    keywords: ['authorized persons', 'personnel', 'key custodian', 'branch manager', 'BOM', 'vault'], 
+                    content: 'Concern Officer, Vault Key Custodian, BOM, Branch Manager, MD, DMD, HORB HOBB', 
+                    section: 'Cash Premises Access Control',
+                    icon: 'fas fa-user-check',
+                    action: () => showAccessControlDetail('2')
+                },
+                { 
+                    id: 'access-control-3', 
+                    title: 'Access Control', 
+                    keywords: ['access control', 'security codes', 'id card', 'deactivate'], 
+                    content: 'All authorized person must deactivate the Access Control door by using Security codes/ID card.', 
+                    section: 'Cash Premises Access Control',
+                    icon: 'fas fa-door-closed',
+                    action: () => showAccessControlDetail('3')
+                },
+                { 
+                    id: 'access-control-4', 
+                    title: 'Security Protocols', 
+                    keywords: ['security protocols', 'lock cabinet', 'lock computer', 'windows key+l'], 
+                    content: 'Lock cabinet, lock computer screen (Windows Key+ L), inform superior.', 
+                    section: 'Cash Premises Access Control',
+                    icon: 'fas fa-lock',
+                    action: () => showAccessControlDetail('4')
+                },
+                { 
+                    id: 'access-control-5', 
+                    title: 'Visitor Register', 
+                    keywords: ['visitor register', 'sign in', 'purpose', 'pin', 'time in', 'time out'], 
+                    content: 'Any person assigned by BM must sign in the register with purpose, PIN, time in/out.', 
+                    section: 'Cash Premises Access Control',
+                    icon: 'fas fa-book',
+                    action: () => showAccessControlDetail('5')
+                },
+                { 
+                    id: 'access-control-6', 
+                    title: 'Register Maintenance', 
+                    keywords: ['register maintenance', 'BM', 'BOM', 'inspection'], 
+                    content: 'BM/BOM will maintain this register with his/her opinion. Ready for inspection.', 
+                    section: 'Cash Premises Access Control',
+                    icon: 'fas fa-clipboard-check',
+                    action: () => showAccessControlDetail('6')
+                },
+                { 
+                    id: 'access-control-7', 
+                    title: 'Access Deactivation', 
+                    keywords: ['access deactivation', 'security codes', 'id card'], 
+                    content: 'All authorized person must deactivate the Access Control door by using Security codes/ID card.', 
+                    section: 'Cash Premises Access Control',
+                    icon: 'fas fa-id-card',
+                    action: () => showAccessControlDetail('7')
+                },
+                { 
+                    id: 'access-control-8', 
+                    title: 'CCTV Coverage', 
+                    keywords: ['cctv', 'coverage', 'ht area', 'cash sorter', 'dvr time'], 
+                    content: 'Ensure CCTV coverage in every area including HT areas and cash sorter desk.', 
+                    section: 'Cash Premises Access Control',
+                    icon: 'fas fa-video',
+                    action: () => showAccessControlDetail('8')
+                },
+                
+                // Other sections
+                { 
+                    id: 'security-cash', 
+                    title: 'Security in Cash Area', 
+                    keywords: ['security', 'cash area', 'safety', 'protection'], 
+                    content: 'Security measures for cash handling areas.', 
+                    section: 'Security in Cash Area',
+                    icon: 'fas fa-shield-alt',
+                    action: () => showSectionPage('security-cash')
+                },
+                { 
+                    id: 'vault-management', 
+                    title: 'Counter, Vault Limit & Cash Management', 
+                    keywords: ['vault', 'counter', 'cash management', 'limits'], 
+                    content: 'Vault and counter limits and cash management procedures.', 
+                    section: 'Counter, Vault Limit & Cash Management',
+                    icon: 'fas fa-vault',
+                    action: () => showSectionPage('vault-management')
+                },
+            ];
+
+            // Extract content from main menu cards
+            const mainCards = document.querySelectorAll('#mainMenu .card');
+            mainCards.forEach((card, index) => {
+                const cardId = card.getAttribute('data-card');
+                const title = card.querySelector('.card-title').textContent;
+                const icon = card.querySelector('.card-icon i').className;
+                
+                // Only add if not already in searchableContent
+                if (!searchableContent.find(item => item.id === cardId)) {
+                    searchableContent.push({
+                        id: cardId,
+                        title: title,
+                        keywords: [title.toLowerCase(), cardId],
+                        content: `Navigate to ${title} section`,
+                        section: 'Main Menu',
+                        icon: icon,
+                        action: function() {
+                            if (cardId === 'access-control') {
+                                showAccessControlPage();
+                            } else {
+                                showSectionPage(cardId);
+                            }
+                        }
+                    });
+                }
+            });
+
+            // Search input event listener
+            searchInput.addEventListener('input', performSearch);
+
+            // Handle Enter key in search
+            searchInput.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter') {
+                    const firstResult = document.querySelector('.search-result-item');
+                    if (firstResult) {
+                        firstResult.click();
+                    }
+                }
+            });
+
+            // Close search results when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!searchContainer.contains(event.target) && 
+                    !searchInput.contains(event.target) && 
+                    !searchResults.contains(event.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        }
+
+        // Function to show access control detail view from search
+        function showAccessControlDetail(cardId) {
+            showAccessControlPage();
+            setTimeout(() => {
+                showDetailView(cardId);
+                highlightSearchResult(cardId);
+            }, 100);
+        }
+
+        // Function to highlight search result in detail view
+        function highlightSearchResult(cardId) {
+            const detailView = document.getElementById('detailView' + cardId);
+            if (detailView) {
+                // Add highlight animation
+                detailView.style.animation = 'none';
+                setTimeout(() => {
+                    detailView.style.animation = 'highlightPulse 1.5s ease';
+                }, 10);
+            }
+        }
+
+        // Add highlight animation to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes highlightPulse {
+                0% { box-shadow: 0 0 0 0 rgba(255, 235, 59, 0.7); }
+                70% { box-shadow: 0 0 0 20px rgba(255, 235, 59, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(255, 235, 59, 0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Function to perform search
+        function performSearch() {
+            const query = searchInput.value.toLowerCase().trim();
+            
+            if (query.length === 0) {
+                searchResults.style.display = 'none';
+                searchResults.innerHTML = '';
+                return;
+            }
+            
+            // Filter search results
+            const results = searchableContent.filter(item => {
+                return item.title.toLowerCase().includes(query) ||
+                       item.keywords.some(keyword => keyword.toLowerCase().includes(query)) ||
+                       item.content.toLowerCase().includes(query);
+            });
+            
+            // Display results
+            if (results.length > 0) {
+                searchResults.innerHTML = '';
+                results.forEach(result => {
+                    const resultItem = document.createElement('div');
+                    resultItem.className = 'search-result-item';
+                    resultItem.onclick = result.action;
+                    
+                    // Highlight matching text
+                    const highlightedTitle = highlightText(result.title, query);
+                    const highlightedContent = highlightText(result.content, query);
+                    
+                    resultItem.innerHTML = `
+                        <div class="search-result-icon">
+                            <i class="${result.icon}"></i>
+                        </div>
+                        <div class="search-result-text">
+                            <div class="search-result-title">${highlightedTitle}</div>
+                            <div class="search-result-context">${highlightedContent}</div>
+                        </div>
+                        <span class="search-section-indicator">${result.section}</span>
+                    `;
+                    
+                    searchResults.appendChild(resultItem);
+                });
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.innerHTML = `
+                    <div class="search-no-results">
+                        <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                        <p>No results found for "${query}"</p>
+                    </div>
+                `;
+                searchResults.style.display = 'block';
+            }
+        }
+
+        // Function to highlight matching text
+        function highlightText(text, query) {
+            if (!query) return text;
+            
+            const regex = new RegExp(`(${query})`, 'gi');
+            return text.replace(regex, '<span class="search-result-highlight">$1</span>');
+        }
+
+        // Function to clear search
+        function clearSearch() {
+            searchInput.value = '';
+            searchResults.style.display = 'none';
+            searchResults.innerHTML = '';
         }
     </script>
 </body>
